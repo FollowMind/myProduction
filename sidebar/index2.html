@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			/*******************************分享到侧边栏**************************************/
+			#share{
+			    position: absolute;
+			    left:-100px;
+			    top: 50px;
+			    width: 100px;
+			    height: 100px;
+			    background-color: red;
+			    z-index: 2;
+			}
+			#share span{
+			    position: absolute;
+			    left:100px;
+			    top:30px;
+			    width:20px;
+			    height: 37px;
+			    padding-top:5px;
+			    display: block;
+			    background-color: purple;
+			    line-height: 14px;
+			    font-size: 14px;
+			    text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<!--------------分享到侧边栏---------------------->
+		<div id="share">
+		    <span>分享</span>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+	    $(window).scroll(function(){
+	        var scrolltop=($(window).height()-100)/2;
+	        var top=$(document).scrollTop()+scrolltop;
+	        $("#share").css("marginTop",top+"px"); /************把分享栏固定在窗口左侧***********/
+	
+	})
+	    /************移入移出侧边栏***********/
+	    $("#share").hover(function(){
+	        $(this).animate({left: 0 },300);
+	    },
+	    function(){
+	        $(this).animate({left:-100},300);
+	    }
+	    );
+	</script>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>三级联动</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+	<select id="pro"></select>
+	<select id="city"></select>
+	<select id="area"></select>
+</body>
+</html>
+<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+<script type="text/javascript">
+	var dataArr = [];
+	$.ajaxSettings.async = false;
+	$.getJSON("/linkage/js/cities.json","",function(res){
+		dataArr = res.dataArr;
+	});
+	
+	var proDom = document.getElementById("pro");
+	var cityDom = document.getElementById("city");
+	var areaDom = document.getElementById("area");
+
+	proDom.onchange = function(){
+		cityDom.innerHTML = "";
+		areaDom.innerHTML = "";
+		var currPro = this.value;
+		setCity(currPro);
+	}
+
+	cityDom.onchange = function(){
+		areaDom.innerHTML = "";
+		var currPro = proDom.value;
+		var currCity = this.value;
+		setArea(currPro,currCity);
+	}
+
+
+	//load省份
+	var posiPro = "四川";
+	var posiCity = "成都";
+	var posiArea = "武侯区";
+
+	//posiPro = "四川";
+
+	//var posiCity = "自贡";
+	//var posiArea = "荣县";
+
+	setPro(posiPro);
+
+	function setPro(posiPro){
+		var pro = "";
+		for(var i = 0;i < dataArr.length;i ++){
+			var proName = dataArr[i].name;
+			
+			var option = document.createElement("option");
+			option.value = proName;
+			option.text = proName;
+			
+			if(posiPro){
+				if(posiPro == proName){
+					option.selected = true;
+				}
+			}
+			else{
+				if(i == 0){
+					posiPro = proName;
+				}
+			}
+			
+			proDom.appendChild(option);
+		}
+		setCity(posiPro);
+	}
+
+	//load城市
+	function setCity(pro){
+		var city = "";
+		for(var i = 0;i < dataArr.length;i ++){
+			var proName = dataArr[i].name; 
+			if(proName == pro){//说明就是要加载这个省份所对应的城市
+				var cityArr = dataArr[i].city;
+
+				for(var j = 0;j < cityArr.length; j ++){
+					var cityName = cityArr[j].name;
+					var option = document.createElement("option");
+					option.value = cityName;
+					option.text = cityName;
+					if(posiCity){
+						if(cityName == posiCity){
+							option.selected = true;
+						}
+					}
+					else{
+						if(j == 0){
+							posiCity = cityName;
+						}
+					}
+					
+					cityDom.appendChild(option);
+				}
+
+				break;
+			}
+		}
+		setArea(pro,posiCity);
+	}
+
+	//load区
+	function setArea(pro,city){
+		for(var i = 0;i < dataArr.length;i ++){
+			var proName = dataArr[i].name; 
+			if(proName == pro){//说明就是要加载这个省份所对应的城市
+				var cityArr = dataArr[i].city;
+				for(var j = 0;j < cityArr.length; j ++){
+					var cityName = cityArr[j].name;
+					if(cityName == city){
+						var areaArr = cityArr[j].area;
+						for(var k = 0;k < areaArr.length;k ++){
+							var areaName = areaArr[k];
+							var option = document.createElement("option");
+							option.value = areaName;
+							option.text = areaName;
+							if(posiArea){
+								if(posiArea == areaName){
+									option.selected = true;
+								}
+							}
+							areaDom.appendChild(option);
+						}
+						break;
+					}
+					
+				}
+				break;
+			}
+		}
+	}
+
+
+</script>

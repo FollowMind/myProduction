@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>问卷调查</title>
+		
+		<link rel="stylesheet" type="text/css" href="layer-v3.1.1/layer/theme/default/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="layDate-v5.0.9/laydate/theme/default/laydate.css"/>
+		
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	</head>
+	<body>
+		<header>
+			<div class="box">
+				<h2>问卷调查</h2>
+				<h3>我的问卷</h3>
+			</div>
+		</header>
+		<section id="addData">
+			<input type="text" name="title" id="title" placeholder="添加标题"/>
+				
+			<div id="addContent">
+				<ul>
+					<!--<input type="radio" name="" id=""/>-->
+				</ul>
+			</div>
+			
+			<a href="javascript:;" id="addQuestion"><strong>+</strong> 添加问题</a>
+			
+			<div class="action">
+				<div class="diedline">
+					<label for="dataTime">问卷截止日期：</label><input type="text" id="dataTime" placeholder="请选择日期"/>
+				</div>
+				<div class="actionSave">
+					<a href="javascript:;" class="saveBut">保存</a>
+					<a href="javascript:;" class="pubBut">发布</a>
+				</div>
+				
+			</div>
+		</section>
+		<section id="updateData">
+			<table border="1" style="border-collapse: collapse;">
+				<thead>
+					<tr>
+						<th>标题</th>
+						<th>时间</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Data</td>
+						<td>Data</td>
+						<td>Data</td>
+						<td>Data</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+		<section id="searchData">
+			
+		</section>
+	<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+	<script type="text/javascript" src="layer-v3.1.1/layer/layer.js"></script>
+	<script src="layDate-v5.0.9/laydate/laydate.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript">
+		laydate.render({
+			elem: '#dataTime' //指定元素
+		});
+	</script>
+	</body>
+</html>

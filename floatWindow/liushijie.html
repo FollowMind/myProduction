@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			display: inline-block;
+		}
+		#block{
+			width: 150px;
+			height: 150px;
+			background: #F0AD4E;
+			position: fixed;
+			left: 0;
+			top: 0;
+		}
+		.switch{
+			position: absolute;
+			right: 5px;
+			top: 5px;
+			height: 20px;
+			width: 20px;
+			background: #FF0000;
+			z-index: 100;
+			border-radius: 20px;
+			display: none;
+		}
+	</style>
+	<body>
+		<div id="block">
+			<div class="switch"></div>
+		</div>
+		<div style="height: 2000px;width: 2000px;"></div>
+		<script type="text/javascript">
+			var block = document.getElementById('block');
+			var Switch = document.getElementsByClassName('switch')[0];
+			var t = '';
+			var x = 0,
+				y = 0;
+			var flag_x = true;
+			var flag_y = true;
+			
+			var block_width = block.offsetWidth;
+			var block_height = block.offsetHeight;
+			
+			start();//开始移动函数
+			block.addEventListener('mousemove',function(){
+				console.log('移入');
+				Switch.style.display = 'block';
+				clearInterval(t);
+			});
+			block.addEventListener('mouseout',function(){
+				console.log('移出');
+				Switch.style.display = 'none';
+				start();//开始移动函数
+			});
+			Switch.addEventListener('click',function(){
+				block.remove();
+				clearInterval(t);
+			})
+			function start(){
+				clearInterval(t);
+				t = setInterval(function(){
+					var Height = window.innerHeight;
+					var Width = window.innerWidth;
+					console.log(Width,window.outerWidth);
+					block.style.left = x + 'px';
+					block.style.top = y + 'px';
+					
+					
+					if(x >= Width - block_width){
+						flag_x = false;
+					}
+
+					if(y >= Height - block_height ){
+						flag_y = false;
+					}
+
+					if(x <= 0){
+						flag_x = true;
+					}
+					if(y <= 0){
+						flag_y = true;
+					}
+//					
+					flag_x ? x++ : x--;
+					flag_y ? y++ : y--;
+				},10);
+			}
+		</script>
+	</body>
+</html>

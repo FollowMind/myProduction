@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>漂浮弹窗</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			html,body{
+				height: 100%;
+				width: 100%;
+			}
+			#floatBox{
+				width: 200px;
+				height: 200px;
+				position: fixed;
+				top: 100px;
+				left: 100px;
+				border: solid 1px #000000;
+				cursor: pointer;
+			}
+			.delete{
+				color: red;
+				position: absolute;
+				top: 3px;
+				right: 3px;
+				width: 20px;
+				height: 20px;
+				background: url(img/delete.png)no-repeat 50% 50%;
+				background-size: 100% 100%;
+				display: none;
+			}
+			#floatBox:hover .delete{
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="floatBox">
+			<div class="delete"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var floatBox = document.getElementById('floatBox');
+		var flagY = true;
+		var flagX = true;
+		var boxWidth = floatBox.offsetWidth;
+		var boxHeight = floatBox.offsetHeight;
+		var x = 100;
+		var y = 100;
+		var T = "";
+		initPos();
+		function initPos(){
+			clearInterval(T);
+			T = setInterval(function(){
+				var winHeight = window.innerHeight;
+				var winWidth = window.innerWidth;
+				floatBox.style.top = y + 'px';
+				floatBox.style.left = x + 'px';
+				if(x <= 0){
+					flagX = true;
+				}
+				if(y <= 0){
+					flagY = true;
+				}
+				if(x >= winWidth - boxWidth){
+					flagX = false;
+				}
+				if(y >= winHeight - boxHeight){
+					flagY = false;
+				}
+				flagY ? y ++:y --;
+				flagX ? x ++:x --;
+			},5);
+		}
+		floatBox.onmouseover = function(){
+			clearInterval(T);
+		}
+		floatBox.onmouseout = function(){
+			initPos();
+		}
+		document.getElementsByClassName('delete')[0].onclick = function(){
+			floatBox.remove();
+		}
+	</script>
+</html>

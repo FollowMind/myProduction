@@ -1,0 +1,39 @@
+	html,body,div,span,ul,li,a,p,img{
+		margin: 0;
+		padding: 0;
+	}
+	.box{
+		/*width: 80%;
+		min-width: 800px;*/
+		/*overflow: hidden;*/
+		/*height: 1000px;*/
+		margin: 0 auto;
+		background: #ccccbb;
+	}
+	.imgBox{
+		position: relative;
+		list-style: none;
+		/*overflow: visible;*/
+		height: auto;
+		margin: 0 auto;
+	}
+	.imgBox > li{
+		/*width: 300px;*/
+		position: absolute;
+		/*padding: 8px;*/
+	}
+	.imgBox > li > img{
+		/*width: 300px;*/
+		height: auto;
+		vertical-align: top;
+	}
+	.imgBox > li > a{
+		display: block;
+		text-align: center;
+		/*background: #B52A1D;*/
+		text-decoration: none;
+		padding: 5px 8px;
+		color: #000000;
+		/*background: #149BDF;*/
+		
+	}

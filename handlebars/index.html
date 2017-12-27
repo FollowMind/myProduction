@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>handlebars</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			table{
+				text-align: center;
+				vertical-align: middle;
+			}
+			ul{
+				margin: 20px;
+			}
+			.classifyName{
+				margin-left: -10px;
+			}
+		</style>
+	</head>
+	<body>
+		<table border="1" cellspacing="0" cellpadding="0" border-collapse="collapse">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>姓名</th>
+					<th>年龄</th>
+					<th>性别</th>
+					<th>语文</th>
+					<th>数学</th>
+					<th>英语</th>
+					<th>社会实践1</th>
+					<th>社会实践2</th>
+					<th>爱好</th>
+				</tr>		
+			</thead>
+			<tbody id="userInfo">
+				
+			</tbody>
+		</table>
+		<div id="classify"></div>
+	<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+	<script type="text/javascript" src="js/handlebars-v4.0.11.js"></script>
+
+	<script type="text/x-handlebars-template" id="userInfo-tp">
+		{{#each userArr}}
+			<tr>
+				<th>{{ numberIndex @index }}</th>
+				<td>{{ userName }}</td>
+				<td>{{ userAge }}</td>
+				<td>{{_userSex userSex }}</td>
+				<td>{{ grades.Chinese }}</td>
+				<td>{{ grades.Math }}</td>
+				<td>{{ grades.English }}</td>
+				{{#each grades.socialPractice}}
+					<td>{{ subject }}</td>
+				{{/each}}
+				<td>
+					{{#each hobby}}
+						{{  hobbyIndex @index}}.{{this  }}
+					{{/each}}
+				</td>
+			</tr>
+		{{/each}}
+	</script>
+	<script type="text/x-handlebars-template" id="data-tp">
+		{{#each this}}
+			<ul>
+				<div class="classifyName">{{ _index @index}}.{{ classifyName }}</div>
+				{{#each itemLists}}
+					<li>
+						{{../_index}}.{{_index @index}} {{ this }} {{../classifyName}}
+					</li>
+				{{/each}}
+			</ul>
+		{{/each}}
+	</script>
+	<script type="text/javascript">
+		initData();
+		function initData(){
+			var dataArr = [
+				{
+					"classifyName" : "分类1",
+					"itemLists" : ["分类1-1","分类1-2","分类1-3"]
+				},
+				{
+					"classifyName" : "分类2",
+					"itemLists" : ["分类2-1","分类2-2","分类2-3"]
+				},
+			];
+			var classify = document.getElementById('classify');
+			var tpHtml = document.getElementById("data-tp").innerHTML;
+			var myTp = Handlebars.compile(tpHtml);
+			Handlebars.registerHelper('_index',function(i){
+				this._index = i + 1;
+				return this._index;
+			})
+			classify.innerHTML = myTp(dataArr);
+		}
+		
+		initUserInfo();
+		function initUserInfo(){
+			userData = {
+				"userArr" : [
+					{
+						"userName" : "张三",
+						"userAge" : "18",
+						"userSex" : 0,
+						"grades" : {
+							"Chinese" : 98,
+							"Math" : 99,
+							"English" : 88,
+							"socialPractice" : [
+								{ "subject" : "60"},
+								{ "subject" : "59"},
+							]
+						},
+						"hobby" : ["打球","看电视","敲代码"]
+					},
+					{
+						"userName" : "李四",
+						"userAge" : "19",
+						"userSex" : 1,
+						"grades" : {
+							"Chinese" : 96,
+							"Math" : 91,
+							"English" : 68,
+							"socialPractice" : [
+								{ "subject" : "89"},
+								{ "subject" : "79"},
+							]
+						},
+						
+						"hobby" : ["打球","看电视","睡觉","看电视"]
+					},
+					{
+						"userName" : "王五",
+						"userAge" : "20",
+						"userSex" : 1,
+						"grades" : {
+							"Chinese" : 78,
+							"Math" : 59,
+							"English" : 66,
+							"socialPractice" : [
+								{ "subject" : "90"},
+								{ "subject" : "80"},
+							]
+						},
+						
+						"hobby" : ["打球","看电视","看电视"]
+					},
+				]
+			}
+			var userInfoDom = document.getElementById('userInfo');
+			var tpHtml = document.getElementById('userInfo-tp').innerHTML;
+			var myTp = Handlebars.compile(tpHtml);
+			Handlebars.registerHelper('_userSex',function(v){
+				if(v == 0){
+					return "男";
+				}else if(v == 1){
+					return "女";
+				}
+			})
+			Handlebars.registerHelper("numberIndex",function(i){
+				i <= 9 ? i = '0' + (i + 1): i = (i + 1);
+				return i;
+			})
+			Handlebars.registerHelper("hobbyIndex",function(i){
+				return i + 1;
+			})
+			userInfoDom.innerHTML = myTp(userData)	
+		}
+	</script>
+	</body>
+</html>

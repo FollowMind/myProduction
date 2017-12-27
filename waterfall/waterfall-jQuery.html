@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>瀑布流</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		#waterFallUl li {float: left;padding: 5px;}
+		#waterFallUl li img{width: 300px;height:auto;display: block;}
+	</style>
+</head>
+<body>
+
+	<ul id="waterFallUl">
+		<!-- <li>
+			<img src="/images/1.png">
+		</li>
+		<li>
+			<img src="/images/2.png">
+		</li>
+		<li>
+			<img src="/images/3.png">
+		</li>
+		<li>
+			<img src="/images/4.png">
+		</li>
+		<li>
+			<img src="/images/5.png">
+		</li>
+		<li>
+			<img src="/images/6.png">
+		</li>
+		<li>
+			<img src="/images/7.png">
+		</li>
+		<li>
+			<img src="/images/8.png">
+		</li> -->
+	</ul>
+	
+</body>
+</html>
+<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+
+<script type="text/javascript">
+	$(function(){
+		var waterFallUlDom = $("#waterFallUl");
+		var winWidth = $(window).width();
+		var winHeight = $(window).height();
+		var liWidth = 0;
+		var cols = 0;
+		var viewWidth = 0;
+		var minHeight = 0;
+		var minIndex = 0;
+		var liDoms = waterFallUlDom.children();
+		var liHeightArr = [];
+		var beginIndex = 0;
+		var index = 0;
+
+		
+
+		var dataObj = {
+			"dataLists" : [
+				{src : '/waterfall/img/bragg.png'},
+				{src : '/waterfall/img/1.jpg'},
+				{src : '/waterfall/img/hallstart.png'},
+				{src : '/waterfall/img/2.jpg'},
+				{src : '/waterfall/img/iceland.png'},
+				{src : '/waterfall/img/3.jpg'},
+				{src : '/waterfall/img/kyoto.png'},
+				{src : '/waterfall/img/4.jpg'},
+				{src : '/waterfall/img/mountain.jpg'},
+//				{src : '/images/a_7.jpg'},
+//				{src : '/images/a_8.jpg'},
+//				{src : '/images/a3_1.jpg'},
+//				{src : '/images/a3_2.jpg'},
+//				{src : '/images/a3_3.jpg'},
+//				{src : '/images/a3_4.jpg'},
+//				{src : '/images/a3_5.jpg'},
+//				{src : '/images/a3_6.jpg'},
+//				{src : '/images/a3_7.jpg'},
+//				{src : '/images/a3_8.jpg'},
+//				{src : '/images/a3_9.jpg'},
+//				{src : '/images/a3_10.jpg'},
+//				{src : '/images/a3_11.jpg'},
+//				{src : '/images/a3_12.jpg'},
+//				{src : '/images/a3_13.jpg'},
+//				{src : '/images/a3_14.jpg'},
+//				{src : '/images/a3_15.jpg'},
+//				{src : '/images/a3_16.jpg'},
+//				{src : '/images/a3_17.jpg'},
+//				{src : '/images/a3_18.jpg'},
+			]
+		};
+
+		var dataArr = dataObj.dataLists;
+
+		initData(true);
+
+		function initData(flag){
+			var liEle = "";
+			var imgEle = "";
+			var tempData = "";
+			tempData = dataArr[index];
+			liEle = $("<li></li>");
+			imgEle = $("<img>").attr("src",tempData.src);
+			imgEle.load(function(){
+				liEle.append(imgEle);
+				waterFallUlDom.append(liEle);
+				
+				if(index == dataArr.length - 1){//递归出口，不调用自身辣
+					if(flag){
+						var liWidth = waterFallUlDom.children().first().outerWidth();
+						cols = parseInt(winWidth / liWidth);
+						viewWidth = liWidth * cols;
+						waterFallUlDom.css({
+							"width" : viewWidth,
+							"margin" : "0 auto"
+						});
+					}
+					initPosition();
+				}
+				else{
+					index ++;
+					initData(flag);
+				}
+			});
+		}
+
+		function initPosition(){
+			liDoms = waterFallUlDom.children();
+			for(var i = beginIndex;i < liDoms.length;i ++){
+
+				if(i < cols){//不需要去找最低高度
+					liHeightArr[i] = $(liDoms[i]).outerHeight();
+				}
+				else{//才需要去找最低高度
+
+					minHeight = Math.min.apply(null,liHeightArr);
+
+					minIndex = $.inArray(minHeight,liHeightArr);
+
+					$(liDoms[i]).css({
+						"position" : "absolute",
+						"top" : minHeight,
+						"left" : $(liDoms[minIndex]).position().left
+					});
+					liHeightArr[minIndex] += $(liDoms[i]).outerHeight();
+				}
+			}
+			
+			beginIndex = liDoms.length;
+
+			if(minHeight < winHeight){
+				// index = 0;
+				// initData(false);
+			}
+		}
+		$(window).scroll(function(){
+			var scrollTop = $(window).scrollTop();
+			if(winHeight + scrollTop > minHeight + 400){
+				index = 0;
+				initData(false);
+			}
+		});
+	})
+	
+</script>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>对象</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 800px;
+				height: 800px;
+				border: solid 1px #CCCCCC;
+				box-shadow: 0px 0px 10px 1px;
+				margin: 0 auto;
+				position: relative;
+			}
+			.kid{
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				left: 0;
+				top: 0;
+				/*background: #88B149;*/
+				transition: all 1.5s linear;
+				border-radius: 50%;
+				background: url(img/wenzi.jpg) no-repeat;
+				background-size: 100% 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<!--<div class="kid">
+				
+			</div>-->
+		</div>
+	</body>
+	<script type="text/javascript">
+		function init(id){
+			var box = document.getElementsByClassName('box')[0];
+			this.obj = document.createElement('div');
+			this.obj.setAttribute('class','kid');
+			box.appendChild(this.obj);
+			var _this = this;
+//			console.log(this)
+//			var x = ,
+//				y = ;
+			this.obj.style.left = (Math.random() * 770) + 'px';
+			this.obj.style.top = (Math.random() *770) + 'px';
+			box.addEventListener('mousedown',function(e){
+//				console.log(1)
+				e = e || event;
+				var this2 = this;
+//				box.addEventListener('mousemove',function(){
+					
+					_this.obj.style.left = e.pageX - this.offsetLeft - 5 + 'px';
+					_this.obj.style.top = e.pageY - this.offsetTop - 5 + 'px';
+//				})
+//				box.addEventListener('mouseup',function(){
+				setTimeout(function(){
+					_this.obj.style.left = (Math.random() *790) + 'px';
+					_this.obj.style.top = (Math.random() *790) + 'px';
+				},2000)
+					
+//				})
+			})
+			
+		}
+//		new init('kid');
+		function kid(num){
+			for(var i = 0;i < num;i ++){
+				new init('kid');
+			}
+		}
+		kid(50);
+	</script>
+</html>

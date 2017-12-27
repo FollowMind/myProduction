@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>烟花</title>
+		<style type="text/css">
+			.box{
+				width: 500px;
+				height: 500px;
+				border: solid 1px #CCCCCC;
+				box-shadow: 0 0 20px 0;
+				margin: 0 auto;
+				position: relative;
+				overflow: hidden;
+			}
+			.kid{
+				position: absolute;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: rgb(250,0,0);
+				/*bottom: -50px;*/
+				transition: all 2s linear;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<!--<div class="kid">
+				
+			</div>-->
+		</div>
+	</body>
+	<script type="text/javascript">
+		function init(){
+			var box = document.getElementsByClassName('box')[0];
+			
+			var _this = this;
+			box.addEventListener('mousedown',function(e){
+				e = e || event;
+				var x = e.pageX - this.offsetLeft,
+					y = e.pageY - this.offsetTop;
+				
+				_this.obj = document.createElement('div');
+				_this.obj.setAttribute('class','kid');
+				
+				box.appendChild(_this.obj);
+				_this.obj.style.left = x + 'px';
+				_this.obj.style.top = y + 'px';
+				var r = Math.random() * 255;
+				var g = Math.random() * 255;
+				var b = Math.random() * 255;
+				_this.obj.style.background = "rgb("+r+","+g+","+b+")";
+				setTimeout(function(){
+					_this.obj.style.left = Math.random() * 1000 + 'px';
+					_this.obj.style.top = Math.random() * -800 + 'px';
+					
+					_this.obj.style.opacity = 0;
+//					
+				},100)
+				setTimeout(function(){
+					_this.obj.remove()
+				},2100)
+			})
+			
+		}
+		function fireworks(num){
+			for(var i = 0;i < num;i ++){
+				new init();
+			}
+		}
+		fireworks(50);
+	</script>
+</html>

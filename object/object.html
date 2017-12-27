@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>对象</title>
+		<style type="text/css">
+			body,div,input,label{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 770px;
+				margin: 0 auto;
+				background: #AAAAAA;
+				overflow: hidden;
+				height: 220px;
+			}
+			.dragBox{
+				position: relative;
+				width: 50px;
+				height: 50px;
+				float: left;
+				margin: 10px;
+				background: #ECECEC;
+				cursor: pointer;
+			}
+			.chooseColor{
+				overflow: hidden;
+				text-align: center;
+				/*float: left;*/
+				width: 180px;
+				margin: 8px auto;
+				background: #000;
+				padding: 8px;
+				border-radius: 15px;
+			}
+			.chooseColor input{
+				width: 30px;
+				height: 30px;
+				float: left;
+			}
+			label{
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				margin-top: 0px;
+				float: left;
+				line-height: 30px;
+				font-size: 25px;
+			}
+			#forRed{
+				color: #FE4C40;
+			}
+			#forYellow{
+				color: #FFEF61;
+			}
+			#forGreen{
+				color: #00FF7F;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="chooseColor">
+				<input type="radio" name="color" id="red" value="red" /><label for="red" id="forRed">红</label>
+				<input type="radio" name="color" id="yellow" value="yellow" /><label for="yellow" id="forYellow">黄</label>
+				<input type="radio" name="color" id="green" value="green" /><label for="green" id="forGreen">绿</label>
+			</div>
+			<div class="dragBox" id="dragBox"></div>
+			<div class="dragBox" id="dragBox2"></div>
+			<div class="dragBox" id="dragBox3"></div>
+			<div class="dragBox" id="dragBox4"></div>
+			<div class="dragBox" id="dragBox5"></div>
+			<div class="dragBox" id="dragBox6"></div>
+			<div class="dragBox" id="dragBox7"></div>
+			<div class="dragBox" id="dragBox8"></div>
+			<div class="dragBox" id="dragBox9"></div>
+			<div class="dragBox" id="dragBox10"></div>
+			<div class="dragBox" id="dragBox11"></div>
+			<div class="dragBox" id="dragBox12"></div>
+			<div class="dragBox" id="dragBox13"></div>
+			<div class="dragBox" id="dragBox14"></div>
+			<div class="dragBox" id="dragBox15"></div>
+			<div class="dragBox" id="dragBox16"></div>
+			<div class="dragBox" id="dragBox17"></div>
+			<div class="dragBox" id="dragBox18"></div>
+			<div class="dragBox" id="dragBox19"></div>
+			<div class="dragBox" id="dragBox20"></div>
+			<div class="dragBox" id="dragBox21"></div>
+			<div class="dragBox" id="dragBox22"></div>
+		</div>
+			
+	</body>
+	<script type="text/javascript">
+	
+		function drag(id){
+			this.obj = document.getElementById(id);
+			var _this = this;
+			this.obj.addEventListener('click',function(){
+				this.style.background = realColor;
+			})
+			
+		}
+		new drag('dragBox');
+		new drag('dragBox2')
+		new drag('dragBox3')
+		new drag('dragBox4')
+		new drag('dragBox5')
+		new drag('dragBox6')
+		new drag('dragBox7')
+		new drag('dragBox8')
+		new drag('dragBox9')
+		new drag('dragBox10')
+		new drag('dragBox11')
+		new drag('dragBox12')
+		new drag('dragBox13')
+		new drag('dragBox14')
+		new drag('dragBox15')
+		new drag('dragBox16')
+		new drag('dragBox17')
+		new drag('dragBox18')
+		new drag('dragBox19')
+		new drag('dragBox20')
+		new drag('dragBox21')
+		new drag('dragBox22')
+		
+		
+		var redColor = document.getElementById('red');
+		var yellowColor = document.getElementById('yellow');
+		var greenColor = document.getElementById('green');
+		var realColor = '';
+		redColor.addEventListener('change',function(){
+			if(this.checked){
+				realColor = '#FE4C40';
+			}
+		})
+		yellowColor.addEventListener('change',function(){
+			if(this.checked){
+				realColor = '#FFEF61';
+			}
+		})
+		greenColor.addEventListener('change',function(){
+			if(this.checked){
+				realColor = '#00FF7F';
+			}
+		})
+		
+		
+		
+		
+		
+		
+		
+
+		
+	</script>
+</html>

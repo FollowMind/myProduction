@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<canvas id="myCanvas" width="600px" height="600px" style="border:1px solid red;"></canvas>
+</body>
+</html>
+<script type="text/javascript">
+	var myCanvas = document.getElementById("myCanvas");
+	var ct = myCanvas.getContext("2d");
+	ct.translate(300,300);
+	ct.save();
+	
+	initClock();
+	setInterval("initClock()",1000);
+
+	function initClock(){
+		var myDate = new Date();
+		var hours = myDate.getHours();
+		var minutes = myDate.getMinutes();
+		var seconds = myDate.getSeconds();
+		hours = minutes / 60 + hours;
+		ct.clearRect(-300,-300,600,600);
+		ct.lineWidth = 10;
+
+		//画表盘
+		ct.beginPath();
+		ct.arc(0,0,200,0,2*Math.PI,false);
+		ct.closePath();
+		ct.stroke();
+
+		ct.beginPath();
+		ct.arc(0,0,10,0,2*Math.PI,false);
+		ct.closePath();
+		ct.fill();
+
+		//画时刻度
+		for(var i = 0; i < 12;i ++){
+			ct.save();
+			ct.rotate(i * 30 * Math.PI / 180);
+			ct.beginPath();
+			ct.moveTo(0,-200);
+			ct.lineTo(0,-180);
+			ct.closePath();
+			ct.stroke();
+			ct.restore();
+		}
+
+		//画分刻度
+		ct.lineWidth = 6;
+		for(var i = 0; i < 60;i ++){
+			ct.save();
+			ct.rotate(i * 6 * Math.PI / 180);
+			ct.beginPath();
+			ct.moveTo(0,-200);
+			ct.lineTo(0,-190);
+			ct.closePath();
+			ct.stroke();
+			ct.restore();
+		}
+
+		//时针
+		ct.save();
+		ct.rotate(hours * 30 * Math.PI / 180);
+		ct.beginPath();
+		ct.moveTo(0,-80);
+		ct.lineTo(0,0);
+		ct.closePath();
+		ct.stroke();
+		ct.restore();
+
+		//分针
+		ct.save();
+		ct.rotate(minutes * 6 * Math.PI / 180);
+		ct.beginPath();
+		ct.moveTo(0,-100);
+		ct.lineTo(0,0);
+		ct.closePath();
+		ct.stroke();
+		ct.restore();
+
+		//秒针
+		ct.save();
+		ct.rotate(seconds * 6 * Math.PI / 180);
+		ct.beginPath();
+		ct.moveTo(0,-130);
+		ct.lineTo(0,0);
+		ct.closePath();
+		ct.stroke();
+		ct.lineWidth = 1;
+		ct.beginPath();
+		ct.arc(0,-115,5,0,2*Math.PI,false);
+		ct.closePath();
+		ct.fill();
+		ct.restore();
+	}
+
+</script>

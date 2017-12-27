@@ -1,0 +1,80 @@
+	body,div,span,img,ul,ol,li{
+		margin: 0;
+		padding: 0;
+	}
+	.box{
+		width: 600px;
+		height: 300px;
+		position: absolute;
+		top: 20%;
+		left: 50%;
+		margin-left: -300px;
+	}
+	.scroll{
+		width: 600px;
+		height: 300px;
+		overflow: hidden;
+		position: relative;
+	}
+	.ulBox{
+		position: absolute;
+		/*width: 2400px;*/
+		list-style: none;
+	}
+	.ulBox > li{
+		width: 600px;
+		float: left; 
+	}
+	.ulBox > li > img{
+		vertical-align: top;
+	}
+	.olBox{
+		position: absolute;
+		list-style: none;
+		left: 50%;
+		bottom: 10%;
+		/*margin-left: -60px;*/
+	}
+	.olBox > li{
+		float: left;
+		width: 20px;
+		height: 10px;
+		margin: 5px;
+		line-height: 20px;
+		text-align: center;
+		background: #63A35C;
+		color: white;
+		/*border-radius: 50%;*/
+		font-size: 12px;
+		cursor: pointer;
+		font-weight: bolder;
+	}
+	.currentPage{
+		background: white !important;
+		color: #63A35C !important;
+	}
+	.scroll > .switch{
+		position: absolute;
+		display: inline-block;
+		display: none;
+		width: 80px;
+		height: 300px;
+		line-height: 380px;
+		z-index: 1;
+		top: 0;
+		cursor: pointer;
+	}
+	.previous{
+		left: 0;
+		background: linear-gradient(90deg,rgba(80,80,80,0.8),transparent);
+	}
+	.next{
+		right: 0;
+		background: linear-gradient(-90deg,rgba(80,80,80,0.8),transparent);
+	}
+	.scroll:hover .switch{
+		display: block;
+	}
+	.scroll > .switch > img{
+		opacity: 0.8;
+	}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>看你有多色</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#box{
+				width: 500px;
+				height: 500px;
+				border: 1px solid #000000;
+				margin: auto;
+				padding: 1.5px;
+			}
+			.kid{
+				float: left;
+				margin: 1.5px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+	<script type="text/javascript">
+		var box = document.getElementById('box');
+		var num = 2;
+		init(num);
+		function init(num){
+			var div = "";
+			var randR = Math.floor(Math.random()*255);
+			var randG = Math.floor(Math.random()*255);
+			var randB = Math.floor(Math.random()*255);
+			
+			for(var i = 0;i < num*num;i ++){
+				div = document.createElement('div');
+				div.className = "kid";
+				box.appendChild(div);
+				
+				var kidWidth = ((box.offsetWidth - 5) - (num * 3)) / num;
+				var kidHeight = ((box.offsetHeight - 5) - (num * 3)) / num;
+				
+				div.style.width = kidWidth + "px";
+				div.style.height = kidHeight +"px";
+				
+				div.style.background = "rgb("+randR+","+randG+","+randB+")";
+			}
+			if(randR >= 0 && randR <= 235){
+				randR += 20
+			}
+			if(randG >= 0 && randG <= 235){
+				randG += 20
+			}
+			if(randB >= 0 && randB <= 235){
+				randB += 20;
+			}
+			if(randR >= 235){
+				randR -= 20;
+			}
+			if(randG >= 235){
+				randG -= 20;
+			}
+			if(randB >= 235){
+				randB -= 20;
+			}
+			var randNum = Math.floor(Math.random()*(num*num));
+			document.getElementsByClassName("kid")[randNum].style.background = "rgb("+randR+","+randG+","+randB+")";
+			document.getElementsByClassName("kid")[randNum].unbind = 'onclick';
+			document.getElementsByClassName("kid")[randNum].onclick = function(){
+				box.innerHTML = "";
+				++ num;
+				if(num >= 15){
+					num = 15;
+				}
+				init(num);
+			}
+		}
+	</script>
+	</body>
+</html>
